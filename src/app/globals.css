@@ -1,26 +1,139 @@
 @import "tailwindcss";
+@import "tw-animate-css";
 
+@custom-variant dark (&:is(.dark *));
+
+/* ---------------------------------------------------------------------------
+   AgriSpectra — modern agri-tech theme
+   Greens & warm earth tones, soft cards, friendly-professional.
+--------------------------------------------------------------------------- */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --radius: 0.75rem;
+
+  --background: oklch(0.99 0.005 120);
+  --foreground: oklch(0.22 0.02 150);
+
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.22 0.02 150);
+
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.22 0.02 150);
+
+  /* primary: a confident leaf green */
+  --primary: oklch(0.55 0.13 150);
+  --primary-foreground: oklch(0.99 0.01 150);
+
+  /* secondary: soft sage */
+  --secondary: oklch(0.95 0.02 150);
+  --secondary-foreground: oklch(0.35 0.05 150);
+
+  --muted: oklch(0.96 0.01 140);
+  --muted-foreground: oklch(0.5 0.02 150);
+
+  /* accent: warm earth / amber */
+  --accent: oklch(0.93 0.04 80);
+  --accent-foreground: oklch(0.35 0.06 70);
+
+  --destructive: oklch(0.58 0.2 25);
+  --destructive-foreground: oklch(0.99 0.01 25);
+
+  --border: oklch(0.92 0.01 150);
+  --input: oklch(0.92 0.01 150);
+  --ring: oklch(0.55 0.13 150);
+
+  --chart-1: oklch(0.6 0.15 150);
+  --chart-2: oklch(0.7 0.13 80);
+  --chart-3: oklch(0.55 0.2 25);
+  --chart-4: oklch(0.65 0.12 200);
+  --chart-5: oklch(0.5 0.1 280);
+}
+
+.dark {
+  --background: oklch(0.18 0.02 150);
+  --foreground: oklch(0.96 0.01 140);
+
+  --card: oklch(0.22 0.02 150);
+  --card-foreground: oklch(0.96 0.01 140);
+
+  --popover: oklch(0.22 0.02 150);
+  --popover-foreground: oklch(0.96 0.01 140);
+
+  --primary: oklch(0.68 0.14 150);
+  --primary-foreground: oklch(0.18 0.02 150);
+
+  --secondary: oklch(0.28 0.03 150);
+  --secondary-foreground: oklch(0.96 0.01 140);
+
+  --muted: oklch(0.28 0.02 150);
+  --muted-foreground: oklch(0.7 0.02 140);
+
+  --accent: oklch(0.35 0.05 80);
+  --accent-foreground: oklch(0.96 0.02 80);
+
+  --destructive: oklch(0.62 0.2 25);
+  --destructive-foreground: oklch(0.98 0.01 25);
+
+  --border: oklch(0.3 0.02 150);
+  --input: oklch(0.32 0.02 150);
+  --ring: oklch(0.68 0.14 150);
+
+  --chart-1: oklch(0.68 0.15 150);
+  --chart-2: oklch(0.75 0.13 80);
+  --chart-3: oklch(0.62 0.2 25);
+  --chart-4: oklch(0.68 0.12 200);
+  --chart-5: oklch(0.6 0.1 280);
 }
 
 @theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  border-color: var(--border);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Soft static gradient used on auth / hero backgrounds */
+.agri-gradient {
+  background:
+    radial-gradient(900px circle at 0% 0%, oklch(0.92 0.06 150 / 0.6), transparent 45%),
+    radial-gradient(800px circle at 100% 100%, oklch(0.92 0.05 90 / 0.5), transparent 45%),
+    var(--background);
 }

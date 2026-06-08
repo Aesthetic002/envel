@@ -1,0 +1,163 @@
+
+> web@0.1.0 dev
+> next dev
+
+▲ Next.js 16.2.7 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://192.168.244.1:3000
+- Environments: .env.local
+✓ Ready in 1551ms
+
+ GET /dashboard 200 in 1230ms (next.js: 419ms, application-code: 811ms)
+ GET / 200 in 174ms (next.js: 57ms, application-code: 117ms)
+ GET / 200 in 71ms (next.js: 7ms, application-code: 64ms)
+ GET /dashboard 200 in 227ms (next.js: 18ms, application-code: 209ms)
+ GET /history 200 in 197ms (next.js: 109ms, application-code: 87ms)
+✓ Compiled in 1175ms
+ GET /history 200 in 223ms (next.js: 168ms, application-code: 54ms)
+✓ Compiled in 218ms
+ GET /history 200 in 200ms (next.js: 119ms, application-code: 81ms)
+✓ Compiled in 404ms
+ GET /history 200 in 191ms (next.js: 142ms, application-code: 50ms)
+ GET /history 200 in 73ms (next.js: 13ms, application-code: 60ms)
+ GET /history 200 in 55ms (next.js: 9ms, application-code: 46ms)
+✓ Compiled in 219ms
+✓ Compiled in 99ms
+ GET /history 200 in 226ms (next.js: 166ms, application-code: 60ms)
+ GET /history 200 in 45ms (next.js: 7ms, application-code: 37ms)
+ GET /history 200 in 49ms (next.js: 7ms, application-code: 42ms)
+ GET /history 200 in 45ms (next.js: 6ms, application-code: 39ms)
+✓ Compiled in 139ms
+ GET /history 200 in 255ms (next.js: 204ms, application-code: 51ms)
+ GET /history 200 in 41ms (next.js: 6ms, application-code: 34ms)
+ GET /history 200 in 52ms (next.js: 5ms, application-code: 46ms)
+ GET /history 200 in 80ms (next.js: 10ms, application-code: 70ms)
+ GET /history 200 in 51ms (next.js: 8ms, application-code: 44ms)
+ GET /history 200 in 62ms (next.js: 9ms, application-code: 53ms)
+ GET /history 200 in 58ms (next.js: 9ms, application-code: 48ms)
+✓ Compiled in 225ms
+✓ Compiled in 326ms
+ GET / 200 in 769ms (next.js: 198ms, application-code: 571ms)
+ GET /dashboard 200 in 1083ms (next.js: 190ms, application-code: 893ms)
+ GET /history 200 in 373ms (next.js: 17ms, application-code: 355ms)
+ GET /history 200 in 206ms (next.js: 22ms, application-code: 183ms)
+ GET /dashboard 200 in 100ms (next.js: 12ms, application-code: 88ms)
+ GET / 200 in 73ms (next.js: 11ms, application-code: 61ms)
+ GET / 200 in 242ms (next.js: 15ms, application-code: 227ms)
+ GET / 200 in 186ms (next.js: 10ms, application-code: 177ms)
+ GET /dashboard 200 in 114ms (next.js: 17ms, application-code: 98ms)
+ GET /dashboard 200 in 137ms (next.js: 17ms, application-code: 120ms)
+ GET /history 200 in 69ms (next.js: 9ms, application-code: 60ms)
+ GET /dashboard 200 in 72ms (next.js: 9ms, application-code: 63ms)
+✓ Compiled in 269ms
+⨯ ReferenceError: AmbientBackground is not defined
+    at RootLayout (src\app\layout.tsx:34:10)
+  32 |     >
+  33 |       <body className="min-h-full flex flex-col">
+> 34 |         <AmbientBackground />
+     |          ^
+  35 |         <AuthProvider>{children}</AuthProvider>
+  36 |         <Toaster richColors position="top-center" />
+  37 |       </body> {
+  digest: '647095050'
+}
+ GET /dashboard 200 in 583ms (next.js: 328ms, application-code: 255ms)
+⨯ ReferenceError: AmbientBackground is not defined
+    at RootLayout (src\app\layout.tsx:34:10)
+  32 |     >
+  33 |       <body className="min-h-full flex flex-col">
+> 34 |         <AmbientBackground />
+     |          ^
+  35 |         <AuthProvider>{children}</AuthProvider>
+  36 |         <Toaster richColors position="top-center" />
+  37 |       </body> {
+  digest: '647095050'
+}
+ GET /dashboard 200 in 100ms (next.js: 16ms, application-code: 84ms)
+⨯ ReferenceError: AmbientBackground is not defined
+    at RootLayout (src\app\layout.tsx:34:10)
+  32 |     >
+  33 |       <body className="min-h-full flex flex-col">
+> 34 |         <AmbientBackground />
+     |          ^
+  35 |         <AuthProvider>{children}</AuthProvider>
+  36 |         <Toaster richColors position="top-center" />
+  37 |       </body> {
+  digest: '647095050'
+}
+ GET /dashboard 200 in 37ms (next.js: 5ms, application-code: 32ms)
+⨯ ReferenceError: AmbientBackground is not defined
+    at RootLayout (src\app\layout.tsx:34:10)
+  32 |     >
+  33 |       <body className="min-h-full flex flex-col">
+> 34 |         <AmbientBackground />
+     |          ^
+  35 |         <AuthProvider>{children}</AuthProvider>
+  36 |         <Toaster richColors position="top-center" />
+  37 |       </body> {
+  digest: '647095050'
+}
+ GET /dashboard 200 in 48ms (next.js: 5ms, application-code: 43ms)
+⨯ ReferenceError: AmbientBackground is not defined
+    at RootLayout (src\app\layout.tsx:34:10)
+  32 |     >
+  33 |       <body className="min-h-full flex flex-col">
+> 34 |         <AmbientBackground />
+     |          ^
+  35 |         <AuthProvider>{children}</AuthProvider>
+  36 |         <Toaster richColors position="top-center" />
+  37 |       </body> {
+  digest: '647095050'
+}
+ GET /dashboard 200 in 49ms (next.js: 5ms, application-code: 44ms)
+⨯ ReferenceError: AmbientBackground is not defined
+    at RootLayout (src\app\layout.tsx:34:10)
+  32 |     >
+  33 |       <body className="min-h-full flex flex-col">
+> 34 |         <AmbientBackground />
+     |          ^
+  35 |         <AuthProvider>{children}</AuthProvider>
+  36 |         <Toaster richColors position="top-center" />
+  37 |       </body> {
+  digest: '647095050'
+}
+ GET /dashboard 200 in 44ms (next.js: 6ms, application-code: 38ms)
+⨯ ReferenceError: AmbientBackground is not defined
+    at RootLayout (src\app\layout.tsx:34:10)
+  32 |     >
+  33 |       <body className="min-h-full flex flex-col">
+> 34 |         <AmbientBackground />
+     |          ^
+  35 |         <AuthProvider>{children}</AuthProvider>
+  36 |         <Toaster richColors position="top-center" />
+  37 |       </body> {
+  digest: '647095050'
+}
+ GET /dashboard 200 in 46ms (next.js: 6ms, application-code: 41ms)
+⨯ ReferenceError: AmbientBackground is not defined
+    at RootLayout (src\app\layout.tsx:34:10)
+  32 |     >
+  33 |       <body className="min-h-full flex flex-col">
+> 34 |         <AmbientBackground />
+     |          ^
+  35 |         <AuthProvider>{children}</AuthProvider>
+  36 |         <Toaster richColors position="top-center" />
+  37 |       </body> {
+  digest: '647095050'
+}
+ GET /dashboard 200 in 60ms (next.js: 8ms, application-code: 52ms)
+[browser] Uncaught ReferenceError: AmbientBackground is not defined
+    at RootLayout (src\app\layout.tsx:34:10)
+  32 |     >
+  33 |       <body className="min-h-full flex flex-col">
+> 34 |         <AmbientBackground />
+     |          ^
+  35 |         <AuthProvider>{children}</AuthProvider>
+  36 |         <Toaster richColors position="top-center" />
+  37 |       </body>
+✓ Compiled in 91ms
+ GET /dashboard 200 in 805ms (next.js: 190ms, application-code: 615ms)
+✓ Compiled in 248ms
+✓ Compiled in 281ms
+ GET /history 200 in 352ms (next.js: 270ms, application-code: 82ms)
+ GET /dashboard 200 in 67ms (next.js: 11ms, application-code: 56ms)
