@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { MiniMarkdown } from "@/components/mini-markdown";
 import { toast } from "sonner";
 import type { CropHealthResult, ImageStress } from "@/lib/crop-science";
+import type { Diagnosis } from "@/lib/diagnosis";
 
 interface Msg {
   role: "user" | "assistant";
@@ -21,15 +22,22 @@ interface Props {
   result: CropHealthResult;
   imagePct: ImageStress | null;
   greenness: number | null;
+  diagnosis: Diagnosis | null;
 }
 
-const SUGGESTIONS = ["What should I do today?", "Is my soil moisture okay?", "Any disease risk?"];
+const BASE_SUGGESTIONS = ["What should I do today?", "Is my soil moisture okay?", "Any disease risk?"];
 
-export function CropChat({ locationName, tempC, rh, soil, result, imagePct, greenness }: Props) {
+export function CropChat({ locationName, tempC, rh, soil, result, imagePct, greenness, diagnosis }: Props) {
   const [messages, setMessages] = useState<Msg[]>([]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
+
+  // When a disease has been diagnosed, surface a diagnosis-specific prompt.
+  const suggestions =
+    diagnosis && diagnosis.probableDisease.toLowerCase() !== "healthy"
+      ? [`How do I treat ${diagnosis.probableDisease}?`, "Explain the treatment plan", "How can I prevent this?"]
+      : BASE_SUGGESTIONS;
 
   useEffect(() => {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
@@ -42,6 +50,10 @@ export function CropChat({ locationName, tempC, rh, soil, result, imagePct, gree
     const imageInfo = imagePct
       ? `Leaf image analysis: ${Math.round(imagePct.healthy)}% healthy, ${Math.round(imagePct.mild)}% mildly stressed, ${Math.round(imagePct.stressed)}% stressed. Mean VARI=${greenness?.toFixed(3) ?? "n/a"}.`
       : "No leaf image was uploaded.";
+
+    const diagnosisInfo = diagnosis
+      ? `A vision-based diagnosis has been run. Probable disease: ${diagnosis.probableDisease} (confidence: ${diagnosis.confidence}, severity: ${diagnosis.severity}). Summary: ${diagnosis.summary} Recommended treatment plan — Irrigation: ${diagnosis.irrigation} Soil: ${diagnosis.soil} Fertiliser: ${diagnosis.fertiliser} Treatment: ${diagnosis.treatment} Prevention: ${diagnosis.prevention}`
+      : "No disease diagnosis has been run yet.";
 
     const newMessages: Msg[] = [...messages, { role: "user", content }];
     setMessages(newMessages);
@@ -63,6 +75,7 @@ export function CropChat({ locationName, tempC, rh, soil, result, imagePct, gree
             category: result.category,
             scores: result.scores,
             imageInfo,
+            diagnosisInfo,
           },
           messages: newMessages,
         }),
@@ -89,7 +102,7 @@ export function CropChat({ locationName, tempC, rh, soil, result, imagePct, gree
             </span>
             <p>Ask me anything about your field — I already know your current readings.</p>
             <div className="flex flex-wrap justify-center gap-2">
-              {SUGGESTIONS.map((s) => (
+              {suggestions.map((s) => (
                 <button
                   key={s}
                   onClick={() => send(s)}

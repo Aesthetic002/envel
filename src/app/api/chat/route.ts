@@ -11,6 +11,7 @@ interface ChatContext {
   category: string;
   scores: { soil: number; vpd: number; temp: number; green?: number };
   imageInfo: string;
+  diagnosisInfo?: string;
 }
 
 interface ChatMessage {
@@ -39,6 +40,7 @@ RESPONSE RULES (always follow these):
 - If everything is fine, keep it short and positive — don't pad
 - Only go beyond 5 bullets if the user explicitly asks for more detail
 - Never make up data — only refer to the values below
+- If a disease diagnosis is present below, treat it as the most important context: tie your advice to that diagnosis and its treatment plan, and stay consistent with it (don't contradict it)
 
 Current farm data:
 - Location: ${ctx.locationName || "unknown"}
@@ -48,7 +50,10 @@ Current farm data:
 - VPD: ${ctx.vpd.toFixed(2)} kPa
 - Crop Health Index (CHI): ${ctx.chi}/100 — ${ctx.category}
 - Stress scores (0=good, 1=bad): soil=${ctx.scores.soil.toFixed(2)}, vpd=${ctx.scores.vpd.toFixed(2)}, temp=${ctx.scores.temp.toFixed(2)}${greenLine}
-- ${ctx.imageInfo}`;
+- ${ctx.imageInfo}
+
+Disease diagnosis:
+- ${ctx.diagnosisInfo || "No disease diagnosis has been run yet."}`;
 }
 
 export async function POST(request: NextRequest) {

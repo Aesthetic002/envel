@@ -55,6 +55,7 @@ function Dashboard() {
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
   const [diagnosisSummary, setDiagnosisSummary] = useState<DiagnosisSummary | null>(null);
+  const [fullDiagnosis, setFullDiagnosis] = useState<Diagnosis | null>(null);
 
   const greenness = analysis?.greenness ?? null;
   const imagePct = analysis?.pct ?? null;
@@ -111,6 +112,7 @@ function Dashboard() {
     setAnalyzing(true);
     setSaved(false);
     setDiagnosisSummary(null);
+    setFullDiagnosis(null);
     try {
       const res = await analyzeImage(file);
       setAnalysis(res);
@@ -280,6 +282,7 @@ function Dashboard() {
                     setAnalysis(null);
                     setSaved(false);
                     setDiagnosisSummary(null);
+                    setFullDiagnosis(null);
                   }}
                 >
                   <Upload className="mr-2 h-4 w-4" /> Upload a different photo
@@ -346,6 +349,7 @@ function Dashboard() {
                   confidence: d.confidence,
                   severity: d.severity,
                 });
+                setFullDiagnosis(d); // feed full plan to the chatbot
                 setSaved(false); // allow re-saving with the diagnosis attached
               }}
             />
@@ -416,6 +420,7 @@ function Dashboard() {
             result={result}
             imagePct={imagePct}
             greenness={greenness}
+            diagnosis={fullDiagnosis}
           />
         </CardContent>
       </Card>
