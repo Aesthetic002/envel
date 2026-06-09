@@ -16,6 +16,7 @@ import {
 } from "firebase/firestore";
 import { db } from "./firebase";
 import type { ImageStress, StressScores } from "./crop-science";
+import type { DiagnosisSummary } from "./diagnosis";
 
 export interface HistoryRecord {
   id: string;
@@ -31,6 +32,7 @@ export interface HistoryRecord {
   imagePct: ImageStress | null;
   greenness: number | null;
   imageUrl: string | null; // Cloudinary URL
+  diagnosis: DiagnosisSummary | null; // probable disease, if diagnosed
   createdAt: Date;
 }
 

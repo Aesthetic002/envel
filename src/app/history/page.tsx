@@ -11,6 +11,7 @@ import {
   ImageOff,
   Eye,
   Download,
+  Stethoscope,
 } from "lucide-react";
 import { ProtectedRoute } from "@/components/protected-route";
 import { Card, CardContent } from "@/components/ui/card";
@@ -198,6 +199,14 @@ function HistoryView() {
                 {rec.locationName && (
                   <p className="flex items-center gap-1 text-sm text-muted-foreground">
                     <MapPin className="h-3.5 w-3.5 text-primary" /> {rec.locationName}
+                  </p>
+                )}
+
+                {rec.diagnosis && rec.diagnosis.probableDisease.toLowerCase() !== "healthy" && (
+                  <p className="flex items-center gap-1.5 rounded-lg bg-secondary/50 px-2 py-1.5 text-xs">
+                    <Stethoscope className="h-3.5 w-3.5 shrink-0 text-primary" />
+                    <span className="font-medium text-foreground">{rec.diagnosis.probableDisease}</span>
+                    <span className="text-muted-foreground">· {rec.diagnosis.confidence}</span>
                   </p>
                 )}
 

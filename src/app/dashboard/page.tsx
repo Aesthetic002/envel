@@ -12,11 +12,13 @@ import {
   Save,
   Sparkles,
   ClipboardList,
+  Stethoscope,
 } from "lucide-react";
 import { ProtectedRoute } from "@/components/protected-route";
 import { LocationSearch } from "@/components/location-search";
 import { ChiGauge } from "@/components/chi-gauge";
 import { CropChat } from "@/components/crop-chat";
+import { DiseaseDiagnosis } from "@/components/disease-diagnosis";
 import { MiniMarkdown } from "@/components/mini-markdown";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -29,6 +31,7 @@ import { cropHealthIndex, recommendations, buildSummary } from "@/lib/crop-scien
 import { analyzeImage, type ImageAnalysis } from "@/lib/image-analysis";
 import { uploadToCloudinary, saveHistory, cloudinaryConfigured } from "@/lib/history";
 import type { Weather, GeoResult } from "@/lib/weather";
+import type { Diagnosis, DiagnosisSummary } from "@/lib/diagnosis";
 import { firebaseConfigured } from "@/lib/firebase";
 
 export default function DashboardPage() {
@@ -51,6 +54,7 @@ function Dashboard() {
   const [analyzing, setAnalyzing] = useState(false);
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
+  const [diagnosisSummary, setDiagnosisSummary] = useState<DiagnosisSummary | null>(null);
 
   const greenness = analysis?.greenness ?? null;
   const imagePct = analysis?.pct ?? null;
@@ -60,6 +64,13 @@ function Dashboard() {
     () => cropHealthIndex(temp, rh, soil, greenness),
     [temp, rh, soil, greenness],
   );
+
+  // Offer disease diagnosis only when there's an image with meaningful stress —
+  // a clearly healthy leaf doesn't need a diagnosis (avoids inventing problems).
+  const showDiagnosis =
+    !!analysis &&
+    imagePct !== null &&
+    (imagePct.stressed > 15 || imagePct.mild > 30 || result.category !== "Healthy");
 
   const recs = useMemo(
     () => recommendations(result.category, result.scores, result.vpd, soil, temp, imagePct),
@@ -99,6 +110,7 @@ function Dashboard() {
   const onUpload = async (file: File) => {
     setAnalyzing(true);
     setSaved(false);
+    setDiagnosisSummary(null);
     try {
       const res = await analyzeImage(file);
       setAnalysis(res);
@@ -143,6 +155,7 @@ function Dashboard() {
         imagePct,
         greenness,
         imageUrl,
+        diagnosis: diagnosisSummary,
       });
       setSaved(true);
       toast.success("Saved to your history.");
@@ -266,6 +279,7 @@ function Dashboard() {
                   onClick={() => {
                     setAnalysis(null);
                     setSaved(false);
+                    setDiagnosisSummary(null);
                   }}
                 >
                   <Upload className="mr-2 h-4 w-4" /> Upload a different photo
@@ -305,6 +319,39 @@ function Dashboard() {
           </CardContent>
         </Card>
       </div>
+
+      {/* ---- disease diagnosis (only when leaf is stressed) ---- */}
+      {showDiagnosis && analysis && imagePct && (
+        <Card className="mt-6 border-amber-300/50">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-base">
+              <Stethoscope className="h-4 w-4 text-primary" /> Disease Diagnosis &amp; Treatment
+              <Badge variant="secondary" className="ml-1 font-normal">
+                GPT-4o vision
+              </Badge>
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <DiseaseDiagnosis
+              imageUrl={analysis.originalUrl}
+              result={result}
+              imagePct={imagePct}
+              greenness={greenness}
+              temp={temp}
+              rh={rh}
+              soil={soil}
+              onDiagnosed={(d: Diagnosis) => {
+                setDiagnosisSummary({
+                  probableDisease: d.probableDisease,
+                  confidence: d.confidence,
+                  severity: d.severity,
+                });
+                setSaved(false); // allow re-saving with the diagnosis attached
+              }}
+            />
+          </CardContent>
+        </Card>
+      )}
 
       {/* ---- recommendations ---- */}
       <Card className="mt-6">
